@@ -1,0 +1,169 @@
+\documentclass[a4paper,11pt,AutoFakeBold]{ctexart}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{array}
+% 关于中文文献引用的格式参数设置请参考
+% https://github.com/hushidong/biblatex-gb7714-2015
+\usepackage[backend=biber,style=gb7714-2015]{biblatex}
+\usepackage{fancyhdr}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{tabularx}
+\usepackage{url}
+\usepackage[dvipsnames]{xcolor}
+
+% 设置页眉，从第二页开始
+\pagestyle{fancy}
+\fancyhead[L]{学生姓名}
+\fancyhead[C]{项目名称}
+\fancyhead[R]{课程名称}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{1pt}
+
+% 定义行距=1.25倍
+\linespread{1.25}
+
+% 定义英文字体
+\setmainfont{Times New Roman}
+% 定义中文字体
+\setCJKmainfont{FandolSong}
+% 定义生僻字处理，当文字无法显示时前缀指令`\fallback`
+\setCJKfamilyfont{Babel}{BabelStone Han}
+\newcommand{\fallback}{\CJKfamily{Babel}}
+
+% 设置一级标题左对齐
+\ctexset{
+  section={
+    format+ =\raggedright
+  }
+}
+
+% 定义常见软链颜色
+\hypersetup{
+  colorlinks = true,
+  urlcolor = CadetBlue,
+  linkcolor = Cerulean,
+  citecolor = Maroon
+}
+
+% 定义其他颜色
+\definecolor{light-gray}{rgb}{0.96, 0.96, 0.96}
+\definecolor{dark-blue}{rgb}{0, 0.2, 0.4}
+\definecolor{light-yellow}{rgb}{1, 0.95, 0.8}
+
+% 定义行内代码格式
+\NewDocumentCommand{
+  \codeword}{v}{%
+    \colorbox{light-gray}{
+      \texttt{\textcolor{Black}{#1}
+    }
+  }%
+}
+
+% 自定义审稿人和回复文本段
+
+\newcounter{reviewer}
+\setcounter{reviewer}{0}
+\newcounter{point}[reviewer]
+\setcounter{point}{0}
+
+\renewcommand{\thepoint}{评论\,\thereviewer.\arabic{point}}
+
+\newcommand{\titleformat}[1]
+    {\centerline{\textbf{\LARGE{#1}}} \par }
+
+% command declarations for reviewer points and our responses
+
+\newenvironment{point-editor}
+   {\bigskip \refstepcounter{point} \noindent {\textbf{编辑意见~}} \ }
+   {\par }
+
+\newcommand{\reviewersection}
+    {\stepcounter{reviewer} \hrule \bigskip \subsection*{审稿人~\thereviewer}}
+
+\newenvironment{point}
+   {\refstepcounter{point} \noindent {\textbf{\thepoint} } \ }
+   {\medskip \par }
+
+\newcommand{\shortpoint}[1]{\refstepcounter{point}   \bigskip \noindent 
+	{\textbf{评论~\thepoint} } ---~#1  }
+
+\newenvironment{reply}
+    {\color{dark-blue}}
+    {\medskip \par }
+
+\newcommand{\shortreply}[2][]{\medskip \noindent \begin{sf}\textbf{回复}:\  #2
+	\ifthenelse{\equal{#1}{}}{}{ \hfill \footnotesize (#1)}%
+	\medskip \end{sf}}
+
+
+\title{\textbf{中文修回信（非官方模版）}}
+\author{白\fallback{鹡鸰}}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{给编辑的回复信}
+
+尊敬的[收件人姓名]，
+
+非常感谢您和审稿人对我们提交的论文的认真审阅和宝贵建议。我们认真阅读了您提出的意见，并进行了适当修改，以期能够更好地满足期刊的要求。我们对您和审稿人的指导表示诚挚的感谢。
+
+我们根据您的意见进行了以下修改（简要概括对论文进行的关键修改，推荐使用列表清晰陈列）。
+
+……
+
+经过努力，我们相信现在的论文更加完善了。再次感谢您和审稿人的指导，并期待着您的进一步反馈。
+
+祝好！
+
+[您的姓名] [您的职务/职称] [您的联系方式]
+
+\begin{point-editor}
+编辑往往会根据论文的整体质量给出具有指向性的意见。对于较长或较为重要的评论，应当作出积极的回应并进行适当的讨论。
+\end{point-editor}
+
+\section*{给审稿人的回复}
+
+\reviewersection
+
+\begin{point}
+审稿人若提供了明确的意见清单，可直接按条引用并逐一答复；若未提供明确清单，则须基于自身理解将意见分段并逐一回复。
+\end{point}
+
+\begin{reply}
+在回复审稿人意见时，要尽量确保覆盖每一句话。对于审稿人意见中不涉及学术讨论的感叹、夸奖或批评，则应该在回复章节的开头给出态度上的反馈。
+\end{reply}
+
+\begin{point}
+审稿人的意见不一定都是正确的。当审稿人的意见正确时，应该积极接受并感谢他们的指导，并根据他们的建议对论文进行相应修改。此外，可以适当表达感激之情并表态会采纳这些建议。当审稿人的意见不正确时，作者应该尊重他们的意见，但同时通过适当的解释或提供证据来说明自身立场，并指出为何认为这些意见不适用于该研究或论文。回答应该客观、礼貌，并尽可能地避免与审稿人争论。
+\end{point}
+
+\begin{reply}
+\begin{enumerate}
+    \item 当审稿人或编辑要求提供具体的修改或回复时，可以直接在修回信中粘贴修改后的文字，以便审稿人或编辑清楚地看到对意见的响应。
+    \item 当修改后的文字涉及对审稿意见的直接回应或解释时，可以在修回信中粘贴修改的文字，以确保对审稿意见的回复清晰明了。
+    \item 当修改后的文字涉及重要的学术内容或结论时，我们可以在修回信中粘贴修改的文字，以便审稿人或编辑了解我们对论文内容的调整和更新。
+\end{enumerate}
+除了在修回信中粘贴修改的文字之外，对于原文的改动应当使用不同颜色高亮，以帮助审稿人快速找到改动内容，并判断改动是否有效。这种做法可以使审稿人更容易地对比原文和修改后的内容，从而更准确地评估修改是否符合他们的建议和期刊的要求。
+\end{reply}
+
+\reviewersection
+
+\begin{point}
+一篇论文通常需要通过多个审稿人的检查和评价。在这个过程中，出现不同审稿人存在类似意见或由于学术观点的差异而提出迥然相反的建议是很常见的现象。这种差异可能是由审稿人的学科背景、研究方法、个人偏好以及对问题的理解等因素所致。
+\end{point}
+
+\begin{reply}
+当多个审稿人提出类似的意见时，在修改阶段可以将这些意见进行汇总并整合，以便更有效地进行修改。然而，在回复审稿人意见的阶段，因为每位审稿人都是独立的评审者，他们的意见可能会有细微的差异或者在意见表达上的重点不同。为了尊重每位审稿人的贡献并确保回复全面，应该对每一位审稿人的意见都进行详细回答，解释作者对他们具体建议的理解和回应。
+
+当审稿人意见不一致时，应当仔细阅读并综合评估各位审稿人的意见，理解他们的不同观点和建议。考虑他们的专业背景、研究重点和提出意见的依据，以便做出全面的决策。如有必要，可以向编辑寻求意见，了解他们对审稿人意见的权衡和解释。编辑通常会提供有益的建议，帮助解决意见不一致的问题。对于不一致的审稿意见，在回复中应当说明对不同意见的理解和权衡，并解释作者最终做出的决定。在回复中，可以列出每位审稿人的意见，并说明为什么选择了特定的修改或决策。
+\end{reply}
+
+\end{document}
